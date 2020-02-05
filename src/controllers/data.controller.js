@@ -3,20 +3,30 @@ const { readCountryData } = dataService;
 
 const getCountryData = async(req, res) => {
 
-    let search = [];
-
     try {
-        const {country, year } = req.query;
-        if(country | year) {
-            
+
+        const {country, year, graph } = req.query;
+
+        if(country || year) {
+            console.log(country);
             let years = year ? year : '*';
             const response = await readCountryData(country, years);
+
+            let data = response;
+
+            if(!year && graph) {
+                delete response[0].CountryName;
+                delete response[0].CountryCode;
+                delete response[0].IndicatorName;
+                delete response[0].IndicatorCode;
+                data = Object.values(response[0]);
+            }
 
             res.status(200).json({
                 status: 200,
                 error: null,
                 total: response.length,
-                message: response
+                message: data
             });
 
         } else {
@@ -27,6 +37,7 @@ const getCountryData = async(req, res) => {
                 message: response
             });
         }
+
     } catch (error) {
         res.status(500).send({
             status: 500,
