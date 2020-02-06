@@ -12,6 +12,6 @@ app.use(bodyParser.urlencoded({
 
 app.use('/api', routes);
 
-app.listen(process.env.APP_PORT, function () {
-    console.log(`API CO2 listening on port ${process.env.APP_PORT} !`);
+app.listen(process.env.PORT, function () {
+    console.log(`API CO2 listening on port ${process.env.PORT} !`);
 });
