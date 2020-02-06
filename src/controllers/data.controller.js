@@ -8,7 +8,7 @@ const getCountryData = async(req, res) => {
         const {country, year, graph } = req.query;
 
         if(country || year) {
-            console.log(country);
+
             let years = year ? year : '*';
             const response = await readCountryData(country, years);
 

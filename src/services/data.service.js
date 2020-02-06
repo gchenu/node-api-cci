@@ -21,8 +21,6 @@ const readCountryData = async(country, year) => {
         }
     }
 
-    console.log(query);
-
     const response = await sql.promise().query(query, search);
     return response[0];
 
