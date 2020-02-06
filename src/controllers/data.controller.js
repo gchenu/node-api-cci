@@ -22,6 +22,20 @@ const getCountryData = async(req, res) => {
                 data = Object.values(response[0]);
             }
 
+    
+            if(year && !country) {
+                data = [];
+                response.forEach(element => {
+
+                   data.push({
+                       CountryName: element.CountryName,
+                       data: element[`year${year}`]
+                   })
+                   
+                });
+
+            }
+
             res.status(200).json({
                 status: 200,
                 error: null,
