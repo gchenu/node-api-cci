@@ -9,7 +9,9 @@ const getCountryData = async(req, res) => {
 
         if(country || year) {
 
-            const countryList = country ? country.split(',') : country;
+            console.log(country);
+            const countryList = country ? country.replace('+', ' ').split(',') : country;
+            console.log(countryList);
 
             let years = year ? year : '*';
             const response = await readCountryData(countryList, years, limit);
