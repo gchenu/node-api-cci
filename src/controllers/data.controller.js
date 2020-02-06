@@ -5,12 +5,12 @@ const getCountryData = async(req, res) => {
 
     try {
 
-        const {country, year, graph } = req.query;
+        const {country, year, graph, limit } = req.query;
 
         if(country || year) {
 
             let years = year ? year : '*';
-            const response = await readCountryData(country, years);
+            const response = await readCountryData(country, years, limit);
 
             let data = response;
 

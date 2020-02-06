@@ -1,6 +1,6 @@
 const sql = require('../db');
 
-const readCountryData = async(country, year) => {
+const readCountryData = async(country, year, limit) => {
 
     let query;
     let search = [];
@@ -19,6 +19,11 @@ const readCountryData = async(country, year) => {
             query = `SELECT ?? FROM dataco2 WHERE CountryName=?`;
             search.push(table, country);
         }
+    }
+
+    if(limit) {
+        query = query + ` LIMIT ?`;
+        search.push(+limit);
     }
 
     const response = await sql.promise().query(query, search);
