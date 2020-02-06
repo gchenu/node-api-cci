@@ -8,7 +8,7 @@ const auth = (req, res, next) => {
     }
 
     res.set('WWW-Authenticate', 'Basic realm="data/co2"');
-    return res.status(401).send("🙅🏻 nope")
+    return res.status(401).send("🙅🏻 nope");
 }
 
 module.exports = auth;

@@ -9,17 +9,34 @@ const getCountryData = async(req, res) => {
 
         if(country || year) {
 
+            const countryList = country.split(',');
+
             let years = year ? year : '*';
-            const response = await readCountryData(country, years, limit);
+            const response = await readCountryData(countryList, years, limit);
 
             let data = response;
 
-            if(!year && graph) {
+/*             if(!year && graph) {
                 delete response[0].CountryName;
                 delete response[0].CountryCode;
                 delete response[0].IndicatorName;
                 delete response[0].IndicatorCode;
                 data = Object.values(response[0]);
+            } */
+
+            if(country && !year) {
+                data = [];
+                response.forEach( element => {
+                    let name = element.CountryName;
+                    delete element.CountryName;
+                    delete element.CountryCode;
+                    delete element.IndicatorName;
+                    delete element.IndicatorCode;
+                    data.push({
+                        CountryName: name,
+                        data: Object.values(element)
+                    });
+                })
             }
 
     
@@ -31,9 +48,8 @@ const getCountryData = async(req, res) => {
                        CountryName: element.CountryName,
                        data: element[`year${year}`]
                    })
-                   
-                });
 
+                });
             }
 
             res.status(200).json({

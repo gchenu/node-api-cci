@@ -13,8 +13,20 @@ const readCountryData = async(country, year, limit) => {
     } else {
 
         if(year === '*') {
-            query = `SELECT * FROM dataco2 WHERE CountryName=?`;
-            search.push(country)
+
+            query = `SELECT * FROM dataco2 WHERE `;
+            
+            for(let i = 0; i < country.length; i++ ) {
+                if( i === 0 ) {
+                    query = query + `CountryName=? `;
+                    search.push(country[i]);
+                } else {
+                    query = query + `OR CountryName=? `;
+                    search.push(country[i]);
+                }
+            }
+            
+            search.push(country);
         } else {
             query = `SELECT ?? FROM dataco2 WHERE CountryName=?`;
             search.push(table, country);
